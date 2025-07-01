@@ -5,7 +5,7 @@ var logger = require("./middleware/logger");
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
-var postRouter = require("./routes/posts");
+var postsRouter = require("./routes/posts");
 var app = express();
 
 app.use(logger);
@@ -16,5 +16,6 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
+app.use("/posts", postsRouter);
 
 module.exports = app;
