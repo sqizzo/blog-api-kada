@@ -1,6 +1,4 @@
 const posts = require("../data/posts");
-const attachTimestamp = require("../middleware/attachTimestamp");
-const { post } = require("../routes");
 
 exports.list = () => {
   return posts.map(({ id, title, author }) => ({
@@ -29,7 +27,9 @@ exports.edit = (id, title, content, author) => {
   const postIndex = posts.findIndex((post) => post.id === Number(id));
 
   if (postIndex === -1) {
-    throw new Error("Post not found");
+    const err = new Error("Post was not found");
+    err.status = 401;
+    throw err;
   }
 
   posts[postIndex].title = title ? title : posts[postIndex].title;
