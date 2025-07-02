@@ -9,9 +9,9 @@ const validateBody = (keys) => (req, res, next) => {
   });
 
   if (!isValid) {
-    return res
-      .status(400)
-      .json({ error: "Invalid request body. Missing required fields." });
+    const err = new Error("Invalid request body. Missing required fields.");
+    err.status = 400;
+    return next(err);
   }
 
   next();

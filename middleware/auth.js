@@ -2,15 +2,16 @@ const auth = (role) => (req, res, next) => {
   const headerRole = req.get("x-user-role");
 
   if (!headerRole) {
-    next(new Error("No required role in the header"));
-    return;
+    const err = new Error("No required role in the header");
+    err.status = 403;
+    return next(err);
   }
 
   if (headerRole !== role) {
-    next(new Error("Required role did not match"));
-    return;
+    const err = new Error("Required role did not match");
+    err.status = 403;
+    return next(err);
   }
-
   next();
 };
 
